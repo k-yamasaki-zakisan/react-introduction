@@ -1,5 +1,5 @@
 import React from 'react';
-//import reactDom from 'react-dom';
+import reactDom from 'react-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
@@ -67,43 +67,140 @@ import reportWebVitals from './reportWebVitals';
 //   document.getElementById('root')
 // );
 
-class Clock extends React.Component {
+// class Clock extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {date: new Date()};
+//   }
+
+//   componentDidMount() {
+//     this.timerID = setInterval(
+//       () => this.tick(),
+//       1000
+//     );
+//   }
+
+//   componentWillUnmount() {
+//     clearInterval(this.timerID);
+//   }
+
+//   tick() {
+//     this.setState({
+//       date: new Date()
+//     });
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h1>Hello, world!</h1>
+//         <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+//       </div>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <Clock />,
+//   document.getElementById('root')
+// )
+
+// class Toggle extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {isToggleOn: true};
+
+//     // This binding is necessary to make `this` work in the callback
+//     this.handleClick = this.handleClick.bind(this);
+//   }
+
+//   handleClick() {
+//     this.setState(state => ({
+//       isToggleOn: !state.isToggleOn
+//     }));
+//   }
+
+//   render() {
+//     return (
+//       <button onClick={this.handleClick}>
+//         {this.state.isToggleOn ? 'ON' : 'OFF'}
+//       </button>
+//     );
+//   }
+// }
+
+// ReactDOM.render(
+//   <Toggle />,
+//   document.getElementById('root')
+// );
+
+// function Blog(props) {
+//   const sidebar = (
+//     <ul>
+//       {props.posts.map((post) =>
+//         <li key={post.id}>
+//           {post.title}
+//         </li>
+//       )}
+//     </ul>
+//   );
+//   const content = props.posts.map((post) =>
+//     <div key={post.id}>
+//       <h3>{post.title}</h3>
+//       <p>{post.content}</p>
+//     </div>
+//   );
+//   return (
+//     <div>
+//       {sidebar}
+//       <hr />
+//       {content}
+//     </div>
+//   );
+// }
+
+// const posts = [
+//   {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
+//   {id: 2, title: 'Installation', content: 'You can install React from npm.'}
+// ];
+// ReactDOM.render(
+//   <Blog posts={posts} />,
+//   document.getElementById('root')
+// );
+
+class NameForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {value: ''};
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+  handleChange(event) {
+    this.setState({value: event.target.value});
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    this.setState({
-      date: new Date()
-    });
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
   }
 
   render() {
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
     );
   }
 }
 
 ReactDOM.render(
-  <Clock />,
+  <NameForm />,
   document.getElementById('root')
-)
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
