@@ -1,9 +1,9 @@
-import React from 'react';
-import reactDom from 'react-dom';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from "react";
+import reactDom from "react-dom";
+import ReactDOM from "react-dom";
+import "./index.css";
 // import App from './App';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
 // ReactDOM.render(
 //   // <React.StrictMode>
@@ -394,7 +394,7 @@ import reportWebVitals from './reportWebVitals';
 
 function FancyBorder(props) {
   return (
-    <div className={'FancyBorder FancyBorder-' + props.color}>
+    <div className={"FancyBorder FancyBorder-" + props.color}>
       {props.children}
     </div>
   );
@@ -403,12 +403,8 @@ function FancyBorder(props) {
 function Dialog(props) {
   return (
     <FancyBorder color="blue">
-      <h1 className="Dialog-title">
-        {props.title}
-      </h1>
-      <p className="Dialog-message">
-        {props.message}
-      </p>
+      <h1 className="Dialog-title">{props.title}</h1>
+      <p className="Dialog-message">{props.message}</p>
       {props.children}
     </FancyBorder>
   );
@@ -419,24 +415,23 @@ class SignUpDialog extends React.Component {
     super(props);
     this.handlechange = this.handleChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
-    this.state = {login: ''};
+    this.state = { login: "" };
   }
 
   render() {
     return (
-      <Dialog title="Mars Exploration Program"
-              message="How should we refer to you?">
-        <input value={this.state.login}
-          onChange={this.handlechange} />
-        <button onClick={this.handleSignUp}>
-          Sign Me Up!
-        </button>
+      <Dialog
+        title="Mars Exploration Program"
+        message="How should we refer to you?"
+      >
+        <input value={this.state.login} onChange={this.handlechange} />
+        <button onClick={this.handleSignUp}>Sign Me Up!</button>
       </Dialog>
     );
   }
 
   handleChange(e) {
-    this.setState({login: e.target.value});
+    this.setState({ login: e.target.value });
   }
 
   handleSignUp() {
@@ -444,10 +439,7 @@ class SignUpDialog extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <SignUpDialog />,
-  document.getElementById('root')
-);
+ReactDOM.render(<SignUpDialog />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
