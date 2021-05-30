@@ -392,54 +392,125 @@ import reportWebVitals from "./reportWebVitals";
 //   document.getElementById('root')
 // );
 
-function FancyBorder(props) {
-  return (
-    <div className={"FancyBorder FancyBorder-" + props.color}>
-      {props.children}
-    </div>
-  );
-}
+// function FancyBorder(props) {
+//   return (
+//     <div className={"FancyBorder FancyBorder-" + props.color}>
+//       {props.children}
+//     </div>
+//   );
+// }
 
-function Dialog(props) {
-  return (
-    <FancyBorder color="blue">
-      <h1 className="Dialog-title">{props.title}</h1>
-      <p className="Dialog-message">{props.message}</p>
-      {props.children}
-    </FancyBorder>
-  );
-}
+// function Dialog(props) {
+//   return (
+//     <FancyBorder color="blue">
+//       <h1 className="Dialog-title">{props.title}</h1>
+//       <p className="Dialog-message">{props.message}</p>
+//       {props.children}
+//     </FancyBorder>
+//   );
+// }
 
-class SignUpDialog extends React.Component {
+// class SignUpDialog extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.handlechange = this.handleChange.bind(this);
+//     this.handleSignUp = this.handleSignUp.bind(this);
+//     this.state = { login: "" };
+//   }
+
+//   render() {
+//     return (
+//       <Dialog
+//         title="Mars Exploration Program"
+//         message="How should we refer to you?"
+//       >
+//         <input value={this.state.login} onChange={this.handlechange} />
+//         <button onClick={this.handleSignUp}>Sign Me Up!</button>
+//       </Dialog>
+//     );
+//   }
+
+//   handleChange(e) {
+//     this.setState({ login: e.target.value });
+//   }
+
+//   handleSignUp() {
+//     alert(`Welcome aboard, ${this.state.login}!`);
+//   }
+// }
+
+// ReactDOM.render(<SignUpDialog />, document.getElementById("root"));
+
+class OuterClickExample extends React.Component {
   constructor(props) {
     super(props);
-    this.handlechange = this.handleChange.bind(this);
-    this.handleSignUp = this.handleSignUp.bind(this);
-    this.state = { login: "" };
+
+    this.state = { isOpen: false };
+    this.timeOutId = null;
+
+    this.onClickHandler = this.onClickHandler.bind(this);
+    this.onBlurHandler = this.onBlurHandler.bind(this);
+    this.onFocusHandler = this.onFocusHandler.bind(this);
   }
+
+  // componentDidMount() {
+  //   window.addEventListener("click", this.onClickOutsideHandler);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("click", this.onClickOutsideHandler);
+  // }
+
+  onClickHandler() {
+    this.setState((currentState) => ({
+      isOpen: !currentState.isOpen,
+    }));
+  }
+
+  onBlurHandler() {
+    this.timeOutId = setTimeout(() => {
+      this.setState({
+        isOpen: false,
+      });
+    });
+  }
+
+  onFocusHandler() {
+    clearTimeout(this.timeOutId);
+  }
+
+  // onClickOutsideHandler(event) {
+  //   if (
+  //     this.state.isOpen &&
+  //     !this.toggleContainer.current.contains(event.target)
+  //   ) {
+  //     this.setState({ isOpen: false });
+  //   }
+  // }
 
   render() {
     return (
-      <Dialog
-        title="Mars Exploration Program"
-        message="How should we refer to you?"
-      >
-        <input value={this.state.login} onChange={this.handlechange} />
-        <button onClick={this.handleSignUp}>Sign Me Up!</button>
-      </Dialog>
+      <div onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
+        <button
+          onClick={this.onClickHandler}
+          aria-haspopup="true"
+          aria-expanded={this.state.isOpen}
+        >
+          Select an option
+        </button>
+        {this.state.isOpen && (
+          <ul>
+            <li>Option 1</li>
+            <li>Option 2</li>
+            <li>Option 3</li>
+          </ul>
+        )}
+      </div>
     );
-  }
-
-  handleChange(e) {
-    this.setState({ login: e.target.value });
-  }
-
-  handleSignUp() {
-    alert(`Welcome aboard, ${this.state.login}!`);
   }
 }
 
-ReactDOM.render(<SignUpDialog />, document.getElementById("root"));
+ReactDOM.render(<OuterClickExample />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
