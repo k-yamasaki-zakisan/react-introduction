@@ -479,15 +479,6 @@ class OuterClickExample extends React.Component {
     clearTimeout(this.timeOutId);
   }
 
-  // onClickOutsideHandler(event) {
-  //   if (
-  //     this.state.isOpen &&
-  //     !this.toggleContainer.current.contains(event.target)
-  //   ) {
-  //     this.setState({ isOpen: false });
-  //   }
-  // }
-
   render() {
     return (
       <div onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
